@@ -6,22 +6,21 @@ namespace GorillaNostalgia.Patches
     public class SpeakingAnimPatches
     {
         [HarmonyPatch(typeof(GorillaSpeakerLoudness))]
-        [HarmonyPatch("InvokeUpdate")]
-        public static class LoudnessPatch
+        public static class SpeakerPatches
         {
-            public static bool Prefix(GorillaSpeakerLoudness __instance)
-            {
-                return !Plugin.removeMouthAnimations.Value;
-            }
+            [HarmonyPrefix, HarmonyPatch("UpdateLoudness")]
+            public static bool LoudnessPatch() => !Plugin.RemoveMouthAnimations.Value;
+
+            [HarmonyPrefix, HarmonyPatch("UpdateSmoothedLoudness")]
+            public static bool SmoothLoudnessPatch() => !Plugin.RemoveMouthAnimations.Value;
         }
 
-        [HarmonyPatch(typeof(GorillaMouthFlap))]
-        [HarmonyPatch("InvokeUpdate")]
-        public static class MouthFlapPatch
+        [HarmonyPatch(typeof(GorillaMouthFlap), "InvokeUpdate")]
+        public static class MouthPatches
         {
             public static bool Prefix(GorillaMouthFlap __instance)
             {
-                return !Plugin.removeMouthAnimations.Value;
+                return !Plugin.RemoveMouthAnimations.Value;
             }
         }
     }
