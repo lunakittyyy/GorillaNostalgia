@@ -5,7 +5,7 @@ namespace GorillaNostalgia.Patches
     [HarmonyPatch]
     public static class SpeakerPatch
     {
-        [HarmonyPatch(typeof(GorillaSpeakerLoudness), "InvokeUpdate"), HarmonyPrefix]
+        [HarmonyPatch(typeof(GorillaSpeakerLoudness), "UpdateLoudness"), HarmonyPrefix]
         public static bool UpdateLoudnessPatch() => !Plugin.RemoveMouthAnimations.Value;
 
         [HarmonyPatch(typeof(GorillaSpeakerLoudness), "UpdateSmoothedLoudness"), HarmonyPrefix]
