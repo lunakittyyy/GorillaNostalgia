@@ -1,6 +1,4 @@
-﻿using GorillaNetworking;
-using HarmonyLib;
-using System;
+﻿using HarmonyLib;
 using System.Collections.Generic;
 
 namespace GorillaNostalgia.Patches
@@ -23,17 +21,10 @@ namespace GorillaNostalgia.Patches
             "LHABB."
         };
 
-        [HarmonyPatch(typeof(VRRig))]
-        [HarmonyPatch("IsItemAllowed")]
-        public static class AllowedPatch {
-            public static bool Prefix(ref string itemName, ref bool __result)
-            {
-                if (EACosmetics.Contains(itemName) || !Plugin.useEarlyAccessCosmetics.Value)
-                {
-                    return true;
-                }
-                return false;
-            }
+        [HarmonyPatch(typeof(VRRig), "IsItemAllowed")]
+        public static class AllowedPatch 
+        {
+            public static bool Prefix(ref string itemName) => EACosmetics.Contains(itemName) || !Plugin.UseEarlyAccessDLC.Value;
         }
     }
 }
