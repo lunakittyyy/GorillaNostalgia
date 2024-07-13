@@ -15,16 +15,16 @@ namespace GorillaNostalgia
 
         public void Awake()
         {
-            Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, PluginInfo.GUID);
-
-            GorillaTagger.OnPlayerSpawned(InitializeObjects);
             InitializeConfig();
+            GorillaTagger.OnPlayerSpawned(InitializeObjects);
+
+            Harmony.CreateAndPatchAll(typeof(Plugin).Assembly, PluginInfo.GUID);
         }
 
         public void InitializeConfig()
         {
             UseEarlyAccessDLC = Config.Bind("Cosmetics", "UseEarlyAccessCosmetics", false, "Limit the cosmetics in the game to the ones in the Early Access DLC.");
-            RemoveRocketObject = Config.Bind("Players", "RemoveMouthAnimations", true, "Removes the speaking animations from player faces.");
+            RemoveMouthAnimations = Config.Bind("Players", "RemoveMouthAnimations", true, "Removes the speaking animations from player faces.");
             RemoveRocketObject = Config.Bind("Maps", "RemoveRocket", true, "Removes the rocket from City.");
         }
 
